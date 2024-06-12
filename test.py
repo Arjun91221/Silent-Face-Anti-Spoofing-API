@@ -18,7 +18,7 @@ from src.utility import parse_model_name
 warnings.filterwarnings('ignore')
 
 
-SAMPLE_IMAGE_PATH = "./images/sample/"
+SAMPLE_IMAGE_PATH = ""
 
 
 # 因为安卓端APK获取的视频流宽高比为3:4,为了与之一致，所以将宽高比限制为3:4
@@ -34,11 +34,13 @@ def check_image(image):
 def test(image_name, model_dir, device_id):
     model_test = AntiSpoofPredict(device_id)
     image_cropper = CropImage()
-    image = cv2.imread(SAMPLE_IMAGE_PATH + image_name)
-    result = check_image(image)
+    image = cv2.imread(image_name)
+    result = True
     if result is False:
         return
     image_bbox = model_test.get_bbox(image)
+
+    print(image_bbox)
     prediction = np.zeros((1, 3))
     test_speed = 0
     # sum the prediction from single model's result
@@ -61,16 +63,31 @@ def test(image_name, model_dir, device_id):
 
     # draw result of prediction
     label = np.argmax(prediction)
+    print(label)
     value = prediction[0][label]/2
+
+    is_face , result = False , ""
+
     if label == 1:
         print("Image '{}' is Real Face. Score: {:.2f}.".format(image_name, value))
         result_text = "RealFace Score: {:.2f}".format(value)
         color = (255, 0, 0)
+        is_face , result = True , "Image is Real Face."
+
     else:
         print("Image '{}' is Fake Face. Score: {:.2f}.".format(image_name, value))
         result_text = "FakeFace Score: {:.2f}".format(value)
         color = (0, 0, 255)
+        is_face , result = False , "Image is not from live camera"
+    
+    return is_face , result
+
+
+    if color == (0, 0, 255):
+      raise Exception("The image is not from live camera")
+            
     print("Prediction cost {:.2f} s".format(test_speed))
+
     cv2.rectangle(
         image,
         (image_bbox[0], image_bbox[1]),

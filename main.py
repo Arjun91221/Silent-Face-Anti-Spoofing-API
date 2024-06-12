@@ -10,7 +10,7 @@ app = FastAPI()
 UPLOAD_DIR = "./uploaded_images/"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
-@app.post("/test-image/")
+@app.post("/verify-image/")
 async def test_image(file: UploadFile = File(...)):
     unique_filename = str(uuid.uuid4()) + os.path.splitext(file.filename)[-1]
     filename = os.path.join(UPLOAD_DIR, unique_filename)

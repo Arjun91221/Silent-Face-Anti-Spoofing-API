@@ -51,4 +51,4 @@ async def test_image(file: UploadFile = File(None), image_link: str = Form(None)
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8001)

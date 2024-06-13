@@ -78,13 +78,16 @@ def test(image_name, model_dir, device_id):
         print("Image '{}' is Fake Face. Score: {:.2f}.".format(image_name, value))
         result_text = "FakeFace Score: {:.2f}".format(value)
         color = (0, 0, 255)
-        is_face , result = False , "Image is not from live camera"
+        is_face , result = False , "Image is Fake Face"
     
-    return is_face , result
 
 
     if color == (0, 0, 255):
-      raise Exception("The image is not from live camera")
+        is_face , result = False , "Image is not from live camera"
+        # raise Exception("The image is not from live camera")
+
+    return is_face , result
+      
             
     print("Prediction cost {:.2f} s".format(test_speed))
 

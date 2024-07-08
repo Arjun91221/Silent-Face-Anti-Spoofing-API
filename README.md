@@ -10,7 +10,7 @@ Follow these steps to set up the project
 
 ```bash
 git clone https://github.com/Arjun91221/Silent-Face-Anti-Spoofing-API.git
-cd Silent-Face-Anti-Spoofing-API.git
+cd Silent-Face-Anti-Spoofing-API
 ```
 
 2. Create a virtual environment

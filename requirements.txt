@@ -6,3 +6,6 @@ torch
 opencv_python
 Pillow
 tensorboardX
+fastapi
+uvicorn
+aiohttp
